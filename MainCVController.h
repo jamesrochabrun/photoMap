@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MainCVController.h
 //  photoCollectionView
 //
 //  Created by James Rochabrun on 8/14/16.
@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SimpleAuth/SimpleAuth.h>
 
-@interface ViewController : UIViewController
 
+@interface MainCVController : UICollectionViewController
 
 @end
-

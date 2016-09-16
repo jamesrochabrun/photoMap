@@ -17,6 +17,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    SimpleAuth.configuration[@"foursquare-web"] = @{@"client_id" : @"YYBC05GKFRJDNYYUJWJXCR3RN3S42SOBT1AVD2OTH3TSXGJJ",
+                                                    @"redirect_uri" : @"photoMap://auth/foursquare"};
+    
+    
     return YES;
 }
 
