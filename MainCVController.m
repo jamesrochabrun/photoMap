@@ -15,11 +15,25 @@
     
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBar.topItem.title = @"photos";
-    [self refreshPhotos];
     
-    [SimpleAuth authorize:@"foursquare-web" completion:^(id responseObject, NSError *error) {
-        NSLog(@"response:  %@", responseObject);
-    }];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.accessToken = [defaults stringForKey:@"accessToken"];
+    
+    if (!self.accessToken) {
+        
+        [SimpleAuth authorize:@"foursquare-web" completion:^(id responseObject, NSError *error) {
+            NSLog(@"response:  %@", responseObject);
+            NSString *token = responseObject[@"credentials"][@"token"];
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setObject:token forKey:@"accessToken"];
+            [defaults synchronize];
+        }];
+    } else {
+        
+    }
+    
+    [self refreshPhotos];
+
     
 }
 

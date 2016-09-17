@@ -11,5 +11,6 @@
 
 
 @interface MainCVController : UICollectionViewController
+@property (nonatomic) NSString *accessToken;
 
 @end
