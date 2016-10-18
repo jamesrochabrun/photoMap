@@ -9,6 +9,10 @@
 #import "MainCVController.h"
 #import "PhotoCollectionViewCell.h"
 
+NSString *const DATA_VERSION_DATE = @"20161018";
+NSString *const DATA_FORMAT = @"foursquare";
+NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
+
 @implementation MainCVController
 
 - (void)viewDidLoad {
@@ -16,25 +20,31 @@
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBar.topItem.title = @"photos";
     
+    //getting the value of accesstoken, this key is setted by the developer , if that already happened it wont be nil, if not it will be nil and will create it with the response of the SimpleAuth method
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.accessToken = [defaults stringForKey:@"accessToken"];
     
     if (!self.accessToken) {
         
+        //step 3
+        //ste 4 log the user info by signing in in the foursquare login view
         [SimpleAuth authorize:@"foursquare-web" completion:^(id responseObject, NSError *error) {
+            
             NSLog(@"response:  %@", responseObject);
+            //accessing the token value in the credentials dictionary.
             NSString *token = responseObject[@"credentials"][@"token"];
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            //creating a key value pair for accessToken
             [defaults setObject:token forKey:@"accessToken"];
             [defaults synchronize];
+            
+            [self getVenuesData];
+            
         }];
     } else {
         
+        [self getVenuesData];
     }
-    
-    [self refreshPhotos];
-
-    
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -52,18 +62,63 @@
     return cell;
 }
 
-- (void)refreshPhotos {
+- (void)getVenuesData {
     
+    //this session can be shared like in this example, we use the same session twice
     NSURLSession *session = [NSURLSession sharedSession];
-    NSURL *url = [NSURL URLWithString:@"https://swapi.co/api/people"];
+    
+    NSString *urlLikedVenues = [NSString stringWithFormat:@"%@/users/self/venuelikes/?oauth_token=%@&v=%@&m=%@", HTTPURLVERSION, self.accessToken, DATA_VERSION_DATE, DATA_FORMAT];
+    NSURL *url = [NSURL URLWithString:urlLikedVenues];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSLog(@"Response:%@", response);
+        
+        NSData *data = [NSData dataWithContentsOfURL:location];
+        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+        self.likedArrayIDS = [responseDict valueForKeyPath:@"response.venues.items.id"];
+
+        //Now get the venue by ID
+        [self getVenueFromArrayOfIDS:self.likedArrayIDS withSession:session];
     }];
-    
     
     [task resume];
 }
+
+- (void)getVenueFromArrayOfIDS:(NSArray *)likedArray withSession:(NSURLSession *)session {
+    
+    self.venueArray = [NSMutableArray new];
+    
+    for (NSString *venueID in likedArray) {
+        
+        NSString *urlVenueStr = [NSString stringWithFormat:@"%@/venues/%@?oauth_token=%@&v=%@&m=%@", HTTPURLVERSION, venueID,self.accessToken, DATA_VERSION_DATE, DATA_FORMAT];
+        NSURL *urlForVenue = [NSURL URLWithString:urlVenueStr];
+        NSURLRequest *venueRequest = [NSURLRequest requestWithURL:urlForVenue];
+        
+        NSURLSessionDownloadTask *venueTask = [session downloadTaskWithRequest:venueRequest completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            
+            NSData *venueData = [NSData dataWithContentsOfURL:location];
+            NSDictionary *venuedictionary = [NSJSONSerialization JSONObjectWithData:venueData options:kNilOptions error:nil];
+            
+            [self.venueArray addObject:venuedictionary];
+            
+            NSLog(@"the venueRequest %lu", self.venueArray.count);
+            
+        }];
+       
+        [venueTask resume];
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end

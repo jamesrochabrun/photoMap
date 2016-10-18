@@ -9,8 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <SimpleAuth/SimpleAuth.h>
 
+extern NSString *const DATA_VERSION_DATE;
+extern NSString *const DATA_FORMAT;
+extern NSString *const HTTPURLVERSION;
+
 
 @interface MainCVController : UICollectionViewController
 @property (nonatomic) NSString *accessToken;
+@property (nonatomic) NSArray *likedArrayIDS;
+@property (nonatomic) NSMutableArray *venueArray;
 
 @end
