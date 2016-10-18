@@ -258,14 +258,16 @@
 		7BD75A891D613FA7007672EA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "James Rochabrun";
 				TargetAttributes = {
 					7BD75A901D613FA7007672EA = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = ULU46F325W;
 					};
 					7BD75AA91D613FA7007672EA = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = ULU46F325W;
 						TestTargetID = 7BD75A901D613FA7007672EA;
 					};
 					7BD75AB41D613FA7007672EA = {
@@ -522,8 +524,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -567,8 +571,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -596,7 +602,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F60F6E9F28CDE16BED3E69C1 /* Pods-photoCollectionView.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ULU46F325W;
 				INFOPLIST_FILE = photoCollectionView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.speedelo.photoCollectionView;
@@ -608,7 +616,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8F57B8AFE776F79818C01783 /* Pods-photoCollectionView.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ULU46F325W;
 				INFOPLIST_FILE = photoCollectionView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.speedelo.photoCollectionView;
@@ -621,6 +631,7 @@
 			baseConfigurationReference = C60BCD50ACFAFE0BB3B76355 /* Pods-photoCollectionViewTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = ULU46F325W;
 				INFOPLIST_FILE = photoCollectionViewTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.speedelo.photoCollectionViewTests;
@@ -634,6 +645,7 @@
 			baseConfigurationReference = 34E5658AC61E7FB4F2BD209C /* Pods-photoCollectionViewTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = ULU46F325W;
 				INFOPLIST_FILE = photoCollectionViewTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.speedelo.photoCollectionViewTests;
