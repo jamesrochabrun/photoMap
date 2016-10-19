@@ -48,7 +48,7 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 49;
+    return self.venueArray.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -58,7 +58,7 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    cell.photoView.image = [UIImage imageNamed:@"yo.jpg"];
+    cell.photoDataDictionary = [self.venueArray  objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -101,8 +101,11 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
             
             [self.venueArray addObject:venuedictionary];
             
-            NSLog(@"the venueRequest %lu", self.venueArray.count);
-            
+            NSLog(@"the venueRequest %@", self.venueArray);
+            __weak MainCVController *weakself = self;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakself.collectionView reloadData];
+            });
         }];
        
         [venueTask resume];
