@@ -19,6 +19,7 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
     
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBar.topItem.title = @"photos";
+    self.collectionView.bounces = YES;
     
     //getting the value of accesstoken, this key is setted by the developer , if that already happened it wont be nil, if not it will be nil and will create it with the response of the SimpleAuth method
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -30,10 +31,11 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
         //ste 4 log the user info by signing in in the foursquare login view
         [SimpleAuth authorize:@"foursquare-web" completion:^(id responseObject, NSError *error) {
             
-            NSLog(@"response:  %@", responseObject);
+            //NSLog(@"response:  %@", responseObject);
             //accessing the token value in the credentials dictionary.
             NSString *token = responseObject[@"credentials"][@"token"];
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+           
             //creating a key value pair for accessToken
             [defaults setObject:token forKey:@"accessToken"];
             [defaults synchronize];
@@ -58,7 +60,10 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    cell.photoDataDictionary = [self.venueArray  objectAtIndex:indexPath.row];
+
+    NSDictionary *dict = [self.venueArray  objectAtIndex:indexPath.row];
+    [cell setwithdict:dict];
+    cell.photoDataDictionary = dict;
     return cell;
 }
 
@@ -77,6 +82,8 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
         NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
         self.likedArrayIDS = [responseDict valueForKeyPath:@"response.venues.items.id"];
 
+        
+        NSLog(@"the ids are %@", self.likedArrayIDS);
         //Now get the venue by ID
         [self getVenueFromArrayOfIDS:self.likedArrayIDS withSession:session];
     }];
@@ -101,7 +108,13 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
             
             [self.venueArray addObject:venuedictionary];
             
-            NSLog(@"the venueRequest %@", self.venueArray);
+//            NSString *prefixURL = [venuedictionary valueForKeyPath:@"response.venue.bestPhoto.prefix"];
+//            NSString *size = @"100x100";
+//            NSString *sufixURL = [venuedictionary valueForKeyPath:@"response.venue.bestPhoto.suffix"];
+//            NSString *urlSTR = [NSString stringWithFormat:@"%@%@%@", prefixURL, size, sufixURL];
+//            NSLog(@"PATH:%@", urlSTR);
+
+          // NSLog(@"the venueRequest %@", self.venueArray);
             __weak MainCVController *weakself = self;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakself.collectionView reloadData];
@@ -111,7 +124,6 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
         [venueTask resume];
     }
 }
-
 
 
 
