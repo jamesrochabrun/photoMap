@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SAMCache/SAMCache.h>
 
 @interface PhotoCollectionViewCell : UICollectionViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *photoView;

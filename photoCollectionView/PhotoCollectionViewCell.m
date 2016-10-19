@@ -28,6 +28,15 @@
 
 - (void)downloadImageFromURL:(NSString *)urlString {
     
+    //CREATING A KEY TO CHECK IF IMAGE WAS CACHED
+    NSString *key = urlString;
+    UIImage *cachedPhoto = [[SAMCache sharedCache] imageForKey:key];
+    
+    if (cachedPhoto) {
+        self.photoView.image = cachedPhoto;
+        return;
+    }
+    
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -36,6 +45,7 @@
         //its safer to create a nsdata before
         NSData *data = [NSData dataWithContentsOfURL:location];
         UIImage *image = [UIImage imageWithData:data];
+        [[SAMCache sharedCache] setImage:image forKey:key];
         
         __weak PhotoCollectionViewCell *weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{

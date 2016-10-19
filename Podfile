@@ -6,6 +6,7 @@ target 'photoCollectionView' do
    use_frameworks!
 
     pod 'SimpleAuth/FoursquareWeb'
+    pod 'SAMCache'
 
   # Pods for photoCollectionView
 
@@ -20,3 +21,4 @@ target 'photoCollectionView' do
   end
 
 end
+
