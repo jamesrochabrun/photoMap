@@ -60,9 +60,7 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-
     NSDictionary *dict = [self.venueArray  objectAtIndex:indexPath.row];
-    [cell setwithdict:dict];
     cell.photoDataDictionary = dict;
     return cell;
 }
@@ -81,7 +79,6 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
         NSData *data = [NSData dataWithContentsOfURL:location];
         NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
         self.likedArrayIDS = [responseDict valueForKeyPath:@"response.venues.items.id"];
-
         
         NSLog(@"the ids are %@", self.likedArrayIDS);
         //Now get the venue by ID
@@ -125,6 +122,21 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
     }
 }
 
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([segue.identifier isEqualToString:@"detail"]) {
+        
+        NSIndexPath *selectedPath = [self.collectionView indexPathsForSelectedItems][0];
+        NSDictionary *photoDictionary = self.venueArray[selectedPath.row];
+        DetailViewController *detailVC = segue.destinationViewController;
+        detailVC.photoDict = photoDictionary;
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"detail" sender:self];
+}
 
 
 

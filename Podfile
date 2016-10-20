@@ -7,6 +7,8 @@ target 'photoCollectionView' do
 
     pod 'SimpleAuth/FoursquareWeb'
     pod 'SAMCache'
+    pod 'AFNetworking', '~> 3.0'
+
 
   # Pods for photoCollectionView
 

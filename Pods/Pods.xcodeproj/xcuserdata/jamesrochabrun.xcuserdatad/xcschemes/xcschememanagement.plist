@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>CMDQueryStringSerialization.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,12 +62,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0A3C1C43A20361E23EDCB4FFD4782AD2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0BC530AD1CE13FCDA66965A008674A89</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>0EA1AF77E281BFE665CC0031A7EFE6A5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1BC64116411291A46073D6B2E3F0CD11</key>
+		<key>1607B06106E090CB5DF5CC0B3CB76B4E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1C3436CEA5C3D39764C5F54374794ECB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,12 +92,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>453F9C84D93EC6DD40B6B92D7E909044</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>832811138D1238A5AEDD65C40591F162</key>
+		<key>45B15D9B34AE1147A41A02146EA65AD1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,22 +102,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AFF6A54BFADF9071C4716EE1DBECAE3F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>BABA7F920BC608AE08AA96BF5BF1EF8A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BE7026231D139871AD1FF5521FB144F7</key>
+		<key>E950D9AE6247EE9900D42676A6F90C1A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D6CA30F4038F0A66707ED10579EDD42F</key>
+		<key>FA5FB2525AC423891EC0CB4C5F167F13</key>
 		<dict>
 			<key>primary</key>
 			<true/>

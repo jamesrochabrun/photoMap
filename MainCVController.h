@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <SimpleAuth/SimpleAuth.h>
+#import "DetailViewController.h"
 
 extern NSString *const DATA_VERSION_DATE;
 extern NSString *const DATA_FORMAT;

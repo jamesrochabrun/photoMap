@@ -12,7 +12,6 @@
 @interface PhotoCollectionViewCell : UICollectionViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *photoView;
 @property (nonatomic) NSDictionary *photoDataDictionary;
-- (void)setwithdict:(NSDictionary *)dict;
 
 
 @end
