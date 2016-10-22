@@ -9,24 +9,19 @@
 #import "PhotoCollectionViewCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "PhotoController.h"
+#import "VenueObject.h"
+
 
 @implementation PhotoCollectionViewCell
 
-- (void)setPhotoDataDictionary:(NSDictionary *)photoDataDictionary {
+- (void)setVenue:(VenueObject *)venue {
+    _venue = venue;
     
-   // if(_photoDataDictionary == photoDataDictionary)return;
-    _photoDataDictionary = photoDataDictionary;
-    
-    //Foursquare api require the phot prefix , a size and the photo prefix
-    NSString *prefixURL = [photoDataDictionary valueForKeyPath:@"response.venue.bestPhoto.prefix"];
     NSString *size = @"100x100";
-    NSString *sufixURL = [photoDataDictionary valueForKeyPath:@"response.venue.bestPhoto.suffix"];
-    NSString *urlSTR = [NSString stringWithFormat:@"%@%@%@", prefixURL, size, sufixURL];
+    NSString *urlSTR = [NSString stringWithFormat:@"%@%@%@", venue.prefix, size, venue.sufix];
     NSURL *url = [NSURL URLWithString:urlSTR];
+    
     [self.photoView setImageWithURL:url];
-//    [PhotoController imageForPhoto:photoDataDictionary size:@"100x100" completion:^(UIImage *image) {
-//        self.photoView.image = image;
-//    }];
     
 }
 

@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class VenueObject;
 
 @interface DetailViewController : UIViewController
 @property (nonatomic) NSDictionary *photoDict;
+@property (nonatomic) NSString *tipString;
+@property (nonatomic) VenueObject *venue;
+
 @end

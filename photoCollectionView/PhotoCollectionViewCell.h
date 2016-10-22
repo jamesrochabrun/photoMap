@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <SAMCache/SAMCache.h>
+@class VenueObject;
 
 @interface PhotoCollectionViewCell : UICollectionViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *photoView;
-@property (nonatomic) NSDictionary *photoDataDictionary;
-
-
+@property (nonatomic, strong) VenueObject *venue;
 @end

@@ -8,6 +8,7 @@
 
 #import "MainCVController.h"
 #import "PhotoCollectionViewCell.h"
+#import "VenueObject.h"
 
 NSString *const DATA_VERSION_DATE = @"20161018";
 NSString *const DATA_FORMAT = @"foursquare";
@@ -41,7 +42,7 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
             [defaults synchronize];
             
             [self getVenuesData];
-            
+        
         }];
     } else {
         
@@ -60,8 +61,8 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     PhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    NSDictionary *dict = [self.venueArray  objectAtIndex:indexPath.row];
-    cell.photoDataDictionary = dict;
+    VenueObject *venue = [self.venueArray objectAtIndex:indexPath.row];
+    cell.venue = venue;
     return cell;
 }
 
@@ -103,15 +104,9 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
             NSData *venueData = [NSData dataWithContentsOfURL:location];
             NSDictionary *venuedictionary = [NSJSONSerialization JSONObjectWithData:venueData options:kNilOptions error:nil];
             
-            [self.venueArray addObject:venuedictionary];
+            VenueObject *venue = [VenueObject venueFromDict:venuedictionary];
             
-//            NSString *prefixURL = [venuedictionary valueForKeyPath:@"response.venue.bestPhoto.prefix"];
-//            NSString *size = @"100x100";
-//            NSString *sufixURL = [venuedictionary valueForKeyPath:@"response.venue.bestPhoto.suffix"];
-//            NSString *urlSTR = [NSString stringWithFormat:@"%@%@%@", prefixURL, size, sufixURL];
-//            NSLog(@"PATH:%@", urlSTR);
-
-          // NSLog(@"the venueRequest %@", self.venueArray);
+            [self.venueArray addObject:venue];
             __weak MainCVController *weakself = self;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakself.collectionView reloadData];
@@ -120,6 +115,7 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
        
         [venueTask resume];
     }
+    
 }
 
 
@@ -128,9 +124,10 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
     if ([segue.identifier isEqualToString:@"detail"]) {
         
         NSIndexPath *selectedPath = [self.collectionView indexPathsForSelectedItems][0];
-        NSDictionary *photoDictionary = self.venueArray[selectedPath.row];
+         VenueObject *venue = self.venueArray[selectedPath.row];
         DetailViewController *detailVC = segue.destinationViewController;
-        detailVC.photoDict = photoDictionary;
+        detailVC.venue = venue;
+
     }
 }
 

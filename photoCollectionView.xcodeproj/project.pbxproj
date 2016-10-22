@@ -12,6 +12,9 @@
 		6F57B30733FB6766F03F22B6 /* Pods_photoCollectionView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5457CAF54EE482E7B5C30951 /* Pods_photoCollectionView.framework */; };
 		7B18B1531DB833D80060659B /* PhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B18B1521DB833D80060659B /* PhotoController.m */; };
 		7B18B1591DB842550060659B /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B18B1581DB842550060659B /* DetailViewController.m */; };
+		7B5AA7A51DBAF8C000600510 /* VenueObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5AA7A41DBAF8C000600510 /* VenueObject.m */; };
+		7B5AA7AA1DBAF98E00600510 /* CommonUIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5AA7A61DBAF98E00600510 /* CommonUIConstants.m */; };
+		7B5AA7AB1DBAF98E00600510 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5AA7A91DBAF98E00600510 /* Common.m */; };
 		7BD75A961D613FA7007672EA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD75A951D613FA7007672EA /* main.m */; };
 		7BD75A991D613FA7007672EA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD75A981D613FA7007672EA /* AppDelegate.m */; };
 		7BD75A9F1D613FA7007672EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BD75A9D1D613FA7007672EA /* Main.storyboard */; };
@@ -50,6 +53,12 @@
 		7B18B1521DB833D80060659B /* PhotoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoController.m; path = ../PhotoController.m; sourceTree = "<group>"; };
 		7B18B1571DB842550060659B /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		7B18B1581DB842550060659B /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		7B5AA7A31DBAF8C000600510 /* VenueObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueObject.h; sourceTree = "<group>"; };
+		7B5AA7A41DBAF8C000600510 /* VenueObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueObject.m; sourceTree = "<group>"; };
+		7B5AA7A61DBAF98E00600510 /* CommonUIConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUIConstants.m; sourceTree = "<group>"; };
+		7B5AA7A71DBAF98E00600510 /* CommonUIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUIConstants.h; sourceTree = "<group>"; };
+		7B5AA7A81DBAF98E00600510 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		7B5AA7A91DBAF98E00600510 /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
 		7BD75A911D613FA7007672EA /* photoCollectionView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = photoCollectionView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BD75A951D613FA7007672EA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7BD75A971D613FA7007672EA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -112,6 +121,48 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7B5AA79F1DBAF69E00600510 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7B5AA7A31DBAF8C000600510 /* VenueObject.h */,
+				7B5AA7A41DBAF8C000600510 /* VenueObject.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		7B5AA7A01DBAF6A600600510 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7BD75ACB1D614500007672EA /* PhotoCollectionViewCell.m */,
+				7BD75ACA1D614500007672EA /* PhotoCollectionViewCell.h */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		7B5AA7A11DBAF6AD00600510 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7B18B1571DB842550060659B /* DetailViewController.h */,
+				7B18B1581DB842550060659B /* DetailViewController.m */,
+				7BD75AC71D6140D1007672EA /* MainCVController.h */,
+				7BD75AC81D6140D1007672EA /* MainCVController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		7B5AA7A21DBAF6B600600510 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				7B5AA7A61DBAF98E00600510 /* CommonUIConstants.m */,
+				7B5AA7A71DBAF98E00600510 /* CommonUIConstants.h */,
+				7B5AA7A81DBAF98E00600510 /* Common.h */,
+				7B5AA7A91DBAF98E00600510 /* Common.m */,
+				7B18B1511DB833D80060659B /* PhotoController.h */,
+				7B18B1521DB833D80060659B /* PhotoController.m */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
 		7BD75A881D613FA7007672EA = {
 			isa = PBXGroup;
 			children = (
@@ -137,17 +188,13 @@
 		7BD75A931D613FA7007672EA /* photoCollectionView */ = {
 			isa = PBXGroup;
 			children = (
-				7B18B1511DB833D80060659B /* PhotoController.h */,
-				7B18B1521DB833D80060659B /* PhotoController.m */,
-				7B18B1571DB842550060659B /* DetailViewController.h */,
-				7B18B1581DB842550060659B /* DetailViewController.m */,
-				7BD75AC71D6140D1007672EA /* MainCVController.h */,
-				7BD75AC81D6140D1007672EA /* MainCVController.m */,
 				7BD75A971D613FA7007672EA /* AppDelegate.h */,
 				7BD75A981D613FA7007672EA /* AppDelegate.m */,
+				7B5AA79F1DBAF69E00600510 /* Model */,
+				7B5AA7A01DBAF6A600600510 /* View */,
+				7B5AA7A21DBAF6B600600510 /* Common */,
+				7B5AA7A11DBAF6AD00600510 /* Controller */,
 				7BD75A9D1D613FA7007672EA /* Main.storyboard */,
-				7BD75ACA1D614500007672EA /* PhotoCollectionViewCell.h */,
-				7BD75ACB1D614500007672EA /* PhotoCollectionViewCell.m */,
 				7BD75AA01D613FA7007672EA /* Assets.xcassets */,
 				7BD75AA21D613FA7007672EA /* LaunchScreen.storyboard */,
 				7BD75AA51D613FA7007672EA /* Info.plist */,
@@ -460,10 +507,13 @@
 			files = (
 				7BD75A991D613FA7007672EA /* AppDelegate.m in Sources */,
 				7BD75ACC1D614500007672EA /* PhotoCollectionViewCell.m in Sources */,
+				7B5AA7AA1DBAF98E00600510 /* CommonUIConstants.m in Sources */,
 				7BD75AC91D6140D1007672EA /* MainCVController.m in Sources */,
 				7BD75A961D613FA7007672EA /* main.m in Sources */,
 				7B18B1531DB833D80060659B /* PhotoController.m in Sources */,
+				7B5AA7AB1DBAF98E00600510 /* Common.m in Sources */,
 				7B18B1591DB842550060659B /* DetailViewController.m in Sources */,
+				7B5AA7A51DBAF8C000600510 /* VenueObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

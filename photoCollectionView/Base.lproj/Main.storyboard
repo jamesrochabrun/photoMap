@@ -41,7 +41,6 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="photoView" destination="SPm-El-r2B" id="agh-8R-uov"/>
-                                    <segue destination="UHa-iz-juo" kind="presentation" identifier="detail" modalPresentationStyle="overCurrentContext" id="UQE-fM-eA9"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -51,6 +50,9 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="BJb-5R-9Pi"/>
+                    <connections>
+                        <segue destination="UHa-iz-juo" kind="presentation" identifier="detail" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="Yad-Fc-y1Z"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Txj-g8-tmr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -6,19 +6,18 @@
 //  Copyright © 2016 James Rochabrun. All rights reserved.
 //
 #import "PhotoController.h"
+#import "VenueObject.h"
 @implementation PhotoController
 
-+ (void)imageForPhoto:(NSDictionary *)photo size:(NSString *)size completion:(void(^)(UIImage *image))completion {
++ (void)imageForPhoto:(VenueObject *)photo size:(NSString *)size completion:(void(^)(UIImage *image))completion {
     
     
     if (!photo  || !size || !completion) {
         NSLog(@"%@, %@, %@", photo, size, completion);
         return;
     };
-    
-    NSString *prefixURL = [photo valueForKeyPath:@"response.venue.bestPhoto.prefix"];
-    NSString *sufixURL = [photo valueForKeyPath:@"response.venue.bestPhoto.suffix"];
-    NSString *urlString = [NSString stringWithFormat:@"%@%@%@", prefixURL, size, sufixURL];
+
+    NSString *urlString = [NSString stringWithFormat:@"%@%@%@", photo.prefix, size, photo.sufix];
     
     //CACHE
     NSString *key = urlString;
