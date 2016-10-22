@@ -9,6 +9,7 @@
 #import "MainCVController.h"
 #import "PhotoCollectionViewCell.h"
 #import "VenueObject.h"
+#import "PhotoController.h"
 
 NSString *const DATA_VERSION_DATE = @"20161018";
 NSString *const DATA_FORMAT = @"foursquare";
@@ -23,31 +24,10 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
     self.collectionView.bounces = YES;
     
     //getting the value of accesstoken, this key is setted by the developer , if that already happened it wont be nil, if not it will be nil and will create it with the response of the SimpleAuth method
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.accessToken = [defaults stringForKey:@"accessToken"];
-    
-    if (!self.accessToken) {
-        
-        //step 3
-        //ste 4 log the user info by signing in in the foursquare login view
-        [SimpleAuth authorize:@"foursquare-web" completion:^(id responseObject, NSError *error) {
-            
-            //NSLog(@"response:  %@", responseObject);
-            //accessing the token value in the credentials dictionary.
-            NSString *token = responseObject[@"credentials"][@"token"];
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-           
-            //creating a key value pair for accessToken
-            [defaults setObject:token forKey:@"accessToken"];
-            [defaults synchronize];
-            
-            [self getVenuesData];
-        
-        }];
-    } else {
-        
+    PhotoController *photoController  = [PhotoController new];
+    [photoController accessTokenWithcompletion:^(BOOL finished) {
         [self getVenuesData];
-    }
+    }];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -95,11 +75,13 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
     
     for (NSString *venueID in likedArray) {
         
+        NSURLSession *session1 = [NSURLSession sharedSession];
+        
         NSString *urlVenueStr = [NSString stringWithFormat:@"%@/venues/%@?oauth_token=%@&v=%@&m=%@", HTTPURLVERSION, venueID,self.accessToken, DATA_VERSION_DATE, DATA_FORMAT];
         NSURL *urlForVenue = [NSURL URLWithString:urlVenueStr];
         NSURLRequest *venueRequest = [NSURLRequest requestWithURL:urlForVenue];
         
-        NSURLSessionDownloadTask *venueTask = [session downloadTaskWithRequest:venueRequest completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSURLSessionDownloadTask *venueTask = [session1 downloadTaskWithRequest:venueRequest completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             
             NSData *venueData = [NSData dataWithContentsOfURL:location];
             NSDictionary *venuedictionary = [NSJSONSerialization JSONObjectWithData:venueData options:kNilOptions error:nil];
@@ -124,17 +106,14 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
     if ([segue.identifier isEqualToString:@"detail"]) {
         
         NSIndexPath *selectedPath = [self.collectionView indexPathsForSelectedItems][0];
-         VenueObject *venue = self.venueArray[selectedPath.row];
+        VenueObject *venue = self.venueArray[selectedPath.row];
         DetailViewController *detailVC = segue.destinationViewController;
         detailVC.venue = venue;
-
     }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"detail" sender:self];
-    
-    NSLog(@"touched");
 }
 
 

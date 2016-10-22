@@ -7,7 +7,40 @@
 //
 #import "PhotoController.h"
 #import "VenueObject.h"
+
+NSString *const DATA_VERSION_DATE = @"20161018";
+NSString *const DATA_FORMAT = @"foursquare";
+NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
 @implementation PhotoController
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+    }
+    return self;
+}
+
+- (void)accessTokenWithcompletion:(void (^)(BOOL finished))completion {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.accessToken = [defaults stringForKey:@"accessToken"];
+    
+    if (!self.accessToken) {
+        //step 3
+        //ste 4 log the user info by signing in in the foursquare login view
+        [SimpleAuth authorize:@"foursquare-web" completion:^(id responseObject, NSError *error) {
+            
+            //NSLog(@"response:  %@", responseObject);
+            //accessing the token value in the credentials dictionary.
+            NSString *token = responseObject[@"credentials"][@"token"];
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            
+            //creating a key value pair for accessToken
+            [defaults setObject:token forKey:@"accessToken"];
+            [defaults synchronize];
+        }];
+    }
+}
 
 + (void)imageForPhoto:(VenueObject *)photo size:(NSString *)size completion:(void(^)(UIImage *image))completion {
     
@@ -53,5 +86,16 @@
 //-(UIImage *)completion {
 //    
 //}
+//+ (void)imageForPhoto:(VenueObject *)photo size:(NSString *)size completion:(void(^)(UIImage *image))completion {
+//
+//}
 
+    
+    
+    
+    
+    
+    
+    
+    
 @end
