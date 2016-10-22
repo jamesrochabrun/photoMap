@@ -18,10 +18,11 @@ extern NSString *const DATA_FORMAT;
 extern NSString *const HTTPURLVERSION;
 
 @interface PhotoController : NSObject
-@property (nonatomic) NSString *accessToken;
 + (void)imageForPhoto:(VenueObject *)photo size:(NSString *)size completion:(void(^)(UIImage *image))completion;
-
-- (void)accessTokenWithcompletion:(void (^)(BOOL finished))completion;
-
+- (void)getLikedVenuesID:(void (^)(NSArray *venuesID))success
+                 failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure;
+- (void)getVenueFromID:(NSString *)venueID
+               success:(void (^)(VenueObject *venue))success
+               failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure;
 
 @end
