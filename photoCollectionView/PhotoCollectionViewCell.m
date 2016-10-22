@@ -22,7 +22,6 @@
     NSURL *url = [NSURL URLWithString:urlSTR];
     
     [self.photoView setImageWithURL:url];
-    
 }
 
 

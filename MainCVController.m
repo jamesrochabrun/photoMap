@@ -133,6 +133,8 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"detail" sender:self];
+    
+    NSLog(@"touched");
 }
 
 

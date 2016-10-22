@@ -10,6 +10,7 @@
 #import "PhotoController.h"
 #import "MainCVController.h"
 #import "VenueObject.h"
+#import "Common.h"
 
 @interface DetailViewController ()
 @property (nonatomic, strong) UIImageView *imageView;
@@ -29,6 +30,9 @@
     _backgroundView = [UIView new];
     _backgroundView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:_backgroundView];
+    
+    UITapGestureRecognizer *dismiss = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
+    [_backgroundView addGestureRecognizer:dismiss];
     
     _centerView = [UIView new];
     _centerView.backgroundColor = [UIColor grayColor];
@@ -50,15 +54,15 @@
         _imageView.image = image;
     }];
     
-    UITapGestureRecognizer *dismiss = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
-    [_backgroundView addGestureRecognizer:dismiss];
-    
     _textView = [UITextView new];
     _textView.layer.cornerRadius = 10;
+    _textView.hidden = YES;
+    _textView.alpha = 0;
     _textView.textColor = [UIColor whiteColor];
     _textView.backgroundColor = [UIColor orangeColor];
     UITapGestureRecognizer *dismissTipView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissTipView)];
     [_textView addGestureRecognizer:dismissTipView];
+    [_centerView addSubview:_textView];
     
     [self downloadTips];
 }
@@ -110,11 +114,16 @@
     frame = _tipButton.frame;
     frame.size.height = 40;
     frame.size.width = 40;
-    frame.origin.x = 0;// CGRectGetMaxX(_centerView.frame) - 50;
-    frame.origin.y = 0;//CGRectGetMaxY(_centerView.frame) - 50;
+    frame.origin.x = CGRectGetMaxX(_imageView.frame) - 50;
+    frame.origin.y = CGRectGetMaxY(_imageView.frame) + 10;
     _tipButton.frame= frame;
     
-    _textView.frame = _centerView.frame;
+    frame = _textView.frame;
+    frame.size.height = height(_centerView);
+    frame.size.width = width(_centerView);
+    frame.origin.x = 0;
+    frame.origin.y = 0;
+    _textView.frame = frame;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -143,7 +152,6 @@
     [task resume];
 }
 
-
 - (NSString *)formatTips:(NSArray *)tips {
     
     NSMutableString *tipString = [[NSMutableString alloc] initWithString:@"Tips:\n\n"];
@@ -157,8 +165,11 @@
 
 - (void)presentTipView {
     
-    [self.view addSubview:_textView];
     _textView.text = self.tipString;
+    [UIView animateWithDuration:.5 animations:^{
+        _textView.hidden = NO;
+        _textView.alpha = 1;
+    }];
 }
 
 - (void)dismissTipView {
@@ -166,9 +177,8 @@
     [UIView animateWithDuration:.5 animations:^{
         self.textView.alpha = 0;
     } completion:^(BOOL finished) {
-        [self.textView removeFromSuperview];
+        _textView.hidden = YES;
  }];
-    
     
     [UIView animateWithDuration:.5 animations:^{
         
