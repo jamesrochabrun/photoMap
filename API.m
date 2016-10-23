@@ -8,6 +8,8 @@
 #import "API.h"
 #import "VenueObject.h"
 #import "TipObject.h"
+#import "SessionManager.h"
+
 
 NSString *const DATA_VERSION_DATE = @"20161018";
 NSString *const DATA_FORMAT = @"foursquare";
@@ -58,29 +60,16 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
 - (void)getLikedVenuesID:(void (^)(NSArray *venuesID))success
                  failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure {
     
-    NSURLSession *session = [NSURLSession sharedSession];
     
     NSString *urlLikedVenues = [NSString stringWithFormat:@"%@/users/self/venuelikes/?oauth_token=%@&v=%@&m=%@", HTTPURLVERSION, [API token], DATA_VERSION_DATE, DATA_FORMAT];
-    NSLog(@"PATH LIKEDVENUESIDS = %@", urlLikedVenues);
-    NSURL *url = [NSURL URLWithString:urlLikedVenues];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+
+    SessionManager *sessionManager = [SessionManager new];
     
-    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        NSData *data = [NSData dataWithContentsOfURL:location];
-        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        
-        NSArray *likedVenuesID = [responseDict valueForKeyPath:@"response.venues.items.id"];
-        
-        //Now get the venue by ID
-        if (data) {
-            success(likedVenuesID);
-        } else {
-            failure(data, response, error);
-        }
+    [sessionManager GET:urlLikedVenues parameters:nil success:^(id responseObject) {
+        NSArray *likedVenuesID = [responseObject valueForKeyPath:@"response.venues.items.id"];
+        success(likedVenuesID);
+    } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
     }];
-    
-    [task resume];
 }
 
 - (void)getVenueFromID:(NSString *)venueID
@@ -92,27 +81,15 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
         return;
     }
     
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSString *urlVenueStr = [NSString stringWithFormat:@"%@/venues/%@?oauth_token=%@&v=%@&m=%@", HTTPURLVERSION, venueID, [API token], DATA_VERSION_DATE, DATA_FORMAT];
-    NSURL *urlForVenue = [NSURL URLWithString:urlVenueStr];
-    NSURLRequest *venueRequest = [NSURLRequest requestWithURL:urlForVenue];
     
-    NSURLSessionDownloadTask *venueTask = [session downloadTaskWithRequest:venueRequest completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    SessionManager *sessionManager = [SessionManager new];
+    [sessionManager GET:urlVenueStr parameters:nil success:^(id responseObject) {
+        VenueObject *venue = [VenueObject venueFromDict:responseObject];
+        success(venue);
+    } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
         
-        NSData *data = [NSData dataWithContentsOfURL:location];
-        NSDictionary *venuedictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        
-        VenueObject *venue = [VenueObject venueFromDict:venuedictionary];
-        
-        if (data) {
-            success(venue);
-        } else {
-            failure(data, response, error);
-        }
     }];
-    
-    [venueTask resume];
 }
 
 - (void)getTipsFromVenue:(VenueObject *)venue
@@ -124,33 +101,21 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
         return;
     }
     
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSString *urlString= [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/tips/?oauth_token=%@&v=%@&m=%@", venue.venueID, [API token], DATA_VERSION_DATE, DATA_FORMAT];
-    
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSData *data = [NSData dataWithContentsOfURL:location];
-        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
         
-        NSArray *tipsArray = [responseDict valueForKeyPath:@"response.tips.items.text"];
         NSMutableArray *tips = [NSMutableArray new];
         
-        for (NSString *tipString in tipsArray) {
-            TipObject *tipObject = [TipObject tipFromString:tipString];
-            [tips addObject:tipObject];
-        }
+        SessionManager *sessionManager = [SessionManager new];
         
-        if (data) {
+        [sessionManager GET:urlString parameters:nil success:^(id responseObject) {
+            NSArray *tipsArray = [responseObject valueForKeyPath:@"response.tips.items.text"];
+            for (NSString *tipString in tipsArray) {
+                TipObject *tipObject = [TipObject tipFromString:tipString];
+                [tips addObject:tipObject];
+            }
             success((NSArray *)tips);
-        } else {
-            failure(data, response, error);
-            
-        }
-    }];
-    
-    [task resume];
+        } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
+        }];
 }
 
 

@@ -25,7 +25,7 @@
 		7BD75AC91D6140D1007672EA /* MainCVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD75AC81D6140D1007672EA /* MainCVController.m */; };
 		7BD75ACC1D614500007672EA /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD75ACB1D614500007672EA /* PhotoCollectionViewCell.m */; };
 		7BE42D381DBC3192002CF7F2 /* TipObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE42D371DBC3192002CF7F2 /* TipObject.m */; };
-		7BE42D3B1DBC3BFC002CF7F2 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE42D3A1DBC3BFC002CF7F2 /* NetworkManager.m */; };
+		7BE42D3B1DBC3BFC002CF7F2 /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE42D3A1DBC3BFC002CF7F2 /* SessionManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,8 +81,8 @@
 		7BD75ACB1D614500007672EA /* PhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoCollectionViewCell.m; sourceTree = "<group>"; };
 		7BE42D361DBC3192002CF7F2 /* TipObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipObject.h; sourceTree = "<group>"; };
 		7BE42D371DBC3192002CF7F2 /* TipObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipObject.m; sourceTree = "<group>"; };
-		7BE42D391DBC3BFC002CF7F2 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
-		7BE42D3A1DBC3BFC002CF7F2 /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
+		7BE42D391DBC3BFC002CF7F2 /* SessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
+		7BE42D3A1DBC3BFC002CF7F2 /* SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionManager.m; sourceTree = "<group>"; };
 		8F57B8AFE776F79818C01783 /* Pods-photoCollectionView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-photoCollectionView.release.xcconfig"; path = "Pods/Target Support Files/Pods-photoCollectionView/Pods-photoCollectionView.release.xcconfig"; sourceTree = "<group>"; };
 		AF3DA4478E2FCCA059EE8949 /* Pods_photoCollectionViewTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_photoCollectionViewTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C60BCD50ACFAFE0BB3B76355 /* Pods-photoCollectionViewTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-photoCollectionViewTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-photoCollectionViewTests/Pods-photoCollectionViewTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -161,8 +161,8 @@
 		7B5AA7A21DBAF6B600600510 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				7BE42D391DBC3BFC002CF7F2 /* NetworkManager.h */,
-				7BE42D3A1DBC3BFC002CF7F2 /* NetworkManager.m */,
+				7BE42D391DBC3BFC002CF7F2 /* SessionManager.h */,
+				7BE42D3A1DBC3BFC002CF7F2 /* SessionManager.m */,
 				7B5AA7A61DBAF98E00600510 /* CommonUIConstants.m */,
 				7B5AA7A71DBAF98E00600510 /* CommonUIConstants.h */,
 				7B5AA7A81DBAF98E00600510 /* Common.h */,
@@ -518,7 +518,7 @@
 				7BD75A991D613FA7007672EA /* AppDelegate.m in Sources */,
 				7BD75ACC1D614500007672EA /* PhotoCollectionViewCell.m in Sources */,
 				7B5AA7AA1DBAF98E00600510 /* CommonUIConstants.m in Sources */,
-				7BE42D3B1DBC3BFC002CF7F2 /* NetworkManager.m in Sources */,
+				7BE42D3B1DBC3BFC002CF7F2 /* SessionManager.m in Sources */,
 				7BD75AC91D6140D1007672EA /* MainCVController.m in Sources */,
 				7BD75A961D613FA7007672EA /* main.m in Sources */,
 				7B18B1531DB833D80060659B /* API.m in Sources */,
