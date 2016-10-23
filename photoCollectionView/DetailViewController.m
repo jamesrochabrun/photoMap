@@ -11,6 +11,8 @@
 #import "MainCVController.h"
 #import "VenueObject.h"
 #import "Common.h"
+#import "TipObject.h"
+#import "CommonUIConstants.h"
 
 @interface DetailViewController ()
 @property (nonatomic, strong) UIImageView *imageView;
@@ -50,7 +52,7 @@
     [_tipButton addTarget:self action:@selector(presentTipView) forControlEvents:UIControlEventTouchUpInside];
     [_centerView addSubview:_tipButton];
     
-    [PhotoController imageForPhoto:_venue size:@"300x300" completion:^(UIImage *image) {
+    [PhotoController imageForPhoto:_venue size:kGeomBigSize completion:^(UIImage *image) {
         _imageView.image = image;
     }];
     
@@ -133,35 +135,13 @@
 
 - (void)downloadTips {
     
-    //getting the venue ID
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSString *accesToKEN = [[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"];
-    
-    NSString *urlString= [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/tips/?oauth_token=%@&v=%@&m=%@", _venue.venueID, accesToKEN, DATA_VERSION_DATE, DATA_FORMAT];
-    
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSData *data = [NSData dataWithContentsOfURL:location];
-        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        //create an array of text tips
-        NSArray *tipsArray = [responseDict valueForKeyPath:@"response.tips.items.text"];
-        self.tipString = [self formatTips:tipsArray];
+    PhotoController *photoController = [PhotoController new];
+    [photoController getTipsFromVenue:_venue success:^(NSArray *tips) {
+        self.tipString = [TipObject formatTips:tips];
+    } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
     }];
-    
-    [task resume];
-}
 
-- (NSString *)formatTips:(NSArray *)tips {
-    
-    NSMutableString *tipString = [[NSMutableString alloc] initWithString:@"Tips:\n\n"];
-    
-    for (NSString *tip in tips) {
-        [tipString appendString:[NSString stringWithFormat:@"*%@\n\n", tip]];
-    }
-    return (NSString *)tipString;
 }
-
 
 - (void)presentTipView {
     

@@ -24,5 +24,8 @@ extern NSString *const HTTPURLVERSION;
 - (void)getVenueFromID:(NSString *)venueID
                success:(void (^)(VenueObject *venue))success
                failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure;
+- (void)getTipsFromVenue:(VenueObject *)venue
+                 success:(void (^)(NSArray *tips))success
+                 failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure;
 
 @end

@@ -78,20 +78,9 @@ static CGFloat kGeomHeightLabelInCell = 20.0;
 static CGFloat KVelocityOfAutomaticTransition = 2.25;
 
 
+extern NSString *const kGeomThumbnailSize;
+extern NSString *const kGeomBigSize;
 
-extern NSString *const kcontactNumber;
-extern NSString *const kcontactEmail;
-extern NSString *const kemailSubject;
-extern NSString *const kcompanyDescription;
-extern NSString *const khalfDayCategoryID;
-extern NSString *const kfullDayCategoryID;
-extern NSString *const knauticalOvernightCategoryId;
-extern NSString *const kbedAndBoatCategoryID;
-
-extern NSString *const kKeyBookingModeNoDate;
-extern NSString *const kKeyBookingModeInventory;
-extern NSString *const kKeyBookingModeDateEnquiry;
-extern NSString *const kKeyPhonePrompt;
 
 
 

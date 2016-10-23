@@ -7,6 +7,7 @@
 //
 #import "PhotoController.h"
 #import "VenueObject.h"
+#import "TipObject.h"
 
 NSString *const DATA_VERSION_DATE = @"20161018";
 NSString *const DATA_FORMAT = @"foursquare";
@@ -88,6 +89,11 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
                success:(void (^)(VenueObject *venue))success
                  failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure {
     
+    if (!venueID) {
+        NSLog( @"PROBLEM : VENUEID :%@", venueID);
+        return;
+    }
+    
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSString *urlVenueStr = [NSString stringWithFormat:@"%@/venues/%@?oauth_token=%@&v=%@&m=%@", HTTPURLVERSION, venueID, [PhotoController token], DATA_VERSION_DATE, DATA_FORMAT];
@@ -111,6 +117,44 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
     [venueTask resume];
 }
 
+- (void)getTipsFromVenue:(VenueObject *)venue
+                 success:(void (^)(NSArray *tips))success
+                 failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure {
+    
+    if(!venue) {
+        NSLog(@"PROBLEM VENUE IS %@", venue);
+        return;
+    }
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    NSString *urlString= [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/tips/?oauth_token=%@&v=%@&m=%@", venue.venueID, [PhotoController token], DATA_VERSION_DATE, DATA_FORMAT];
+    
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSData *data = [NSData dataWithContentsOfURL:location];
+        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+        
+        NSArray *tipsArray = [responseDict valueForKeyPath:@"response.tips.items.text"];
+        NSMutableArray *tips = [NSMutableArray new];
+        
+        for (NSString *tipString in tipsArray) {
+            TipObject *tipObject = [TipObject tipFromString:tipString];
+            [tips addObject:tipObject];
+        }
+        
+        if (data) {
+            success((NSArray *)tips);
+        } else {
+            failure(data, response, error);
+            
+        }
+    }];
+    
+    [task resume];
+}
+
 
 + (void)imageForPhoto:(VenueObject *)photo size:(NSString *)size completion:(void(^)(UIImage *image))completion {
     
@@ -128,7 +172,6 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
     UIImage *cachedPhoto = [[SAMCache sharedCache] imageForKey:key];
     
     if (cachedPhoto) {
-       
         completion(cachedPhoto);
         return;
     }
