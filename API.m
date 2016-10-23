@@ -1,11 +1,11 @@
 //
-//  PhotoController.m
+//  API.m
 //  photoCollectionView
 //
 //  Created by James Rochabrun on 10/19/16.
 //  Copyright © 2016 James Rochabrun. All rights reserved.
 //
-#import "PhotoController.h"
+#import "API.h"
 #import "VenueObject.h"
 #import "TipObject.h"
 
@@ -13,11 +13,11 @@ NSString *const DATA_VERSION_DATE = @"20161018";
 NSString *const DATA_FORMAT = @"foursquare";
 NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
 
-@interface PhotoController()
+@interface API()
 - (NSString *)accessToken;
 @end
 
-@implementation PhotoController
+@implementation API
 
 - (instancetype)init {
     self = [super init];
@@ -27,7 +27,7 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
 }
 
 - (NSString *)accessToken {
-    return [PhotoController token];
+    return [API token];
 }
 
 + (NSString *)token {
@@ -55,14 +55,12 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
 }
 
 
-
-
 - (void)getLikedVenuesID:(void (^)(NSArray *venuesID))success
                  failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure {
     
     NSURLSession *session = [NSURLSession sharedSession];
     
-    NSString *urlLikedVenues = [NSString stringWithFormat:@"%@/users/self/venuelikes/?oauth_token=%@&v=%@&m=%@", HTTPURLVERSION, [PhotoController token], DATA_VERSION_DATE, DATA_FORMAT];
+    NSString *urlLikedVenues = [NSString stringWithFormat:@"%@/users/self/venuelikes/?oauth_token=%@&v=%@&m=%@", HTTPURLVERSION, [API token], DATA_VERSION_DATE, DATA_FORMAT];
     NSLog(@"PATH LIKEDVENUESIDS = %@", urlLikedVenues);
     NSURL *url = [NSURL URLWithString:urlLikedVenues];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -96,7 +94,7 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
     
     NSURLSession *session = [NSURLSession sharedSession];
     
-    NSString *urlVenueStr = [NSString stringWithFormat:@"%@/venues/%@?oauth_token=%@&v=%@&m=%@", HTTPURLVERSION, venueID, [PhotoController token], DATA_VERSION_DATE, DATA_FORMAT];
+    NSString *urlVenueStr = [NSString stringWithFormat:@"%@/venues/%@?oauth_token=%@&v=%@&m=%@", HTTPURLVERSION, venueID, [API token], DATA_VERSION_DATE, DATA_FORMAT];
     NSURL *urlForVenue = [NSURL URLWithString:urlVenueStr];
     NSURLRequest *venueRequest = [NSURLRequest requestWithURL:urlForVenue];
     
@@ -128,7 +126,7 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
     
     NSURLSession *session = [NSURLSession sharedSession];
     
-    NSString *urlString= [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/tips/?oauth_token=%@&v=%@&m=%@", venue.venueID, [PhotoController token], DATA_VERSION_DATE, DATA_FORMAT];
+    NSString *urlString= [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/tips/?oauth_token=%@&v=%@&m=%@", venue.venueID, [API token], DATA_VERSION_DATE, DATA_FORMAT];
     
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];

@@ -8,7 +8,7 @@
 
 #import "PhotoCollectionViewCell.h"
 #import "UIImageView+AFNetworking.h"
-#import "PhotoController.h"
+#import "API.h"
 #import "VenueObject.h"
 
 

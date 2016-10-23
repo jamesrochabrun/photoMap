@@ -7,7 +7,7 @@
 //
 
 #import "DetailViewController.h"
-#import "PhotoController.h"
+#import "API.h"
 #import "MainCVController.h"
 #import "VenueObject.h"
 #import "Common.h"
@@ -52,7 +52,7 @@
     [_tipButton addTarget:self action:@selector(presentTipView) forControlEvents:UIControlEventTouchUpInside];
     [_centerView addSubview:_tipButton];
     
-    [PhotoController imageForPhoto:_venue size:kGeomBigSize completion:^(UIImage *image) {
+    [API imageForPhoto:_venue size:kGeomBigSize completion:^(UIImage *image) {
         _imageView.image = image;
     }];
     
@@ -135,8 +135,8 @@
 
 - (void)downloadTips {
     
-    PhotoController *photoController = [PhotoController new];
-    [photoController getTipsFromVenue:_venue success:^(NSArray *tips) {
+    API *api = [API new];
+    [api getTipsFromVenue:_venue success:^(NSArray *tips) {
         self.tipString = [TipObject formatTips:tips];
     } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
     }];

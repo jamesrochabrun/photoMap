@@ -9,13 +9,13 @@
 #import "MainCVController.h"
 #import "PhotoCollectionViewCell.h"
 #import "VenueObject.h"
-#import "PhotoController.h"
+#import "API.h"
 //
 //NSString *const DATA_VERSION_DATE = @"20161018";
 //NSString *const DATA_FORMAT = @"foursquare";
 //NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
 @interface MainCVController()
-@property (nonatomic, strong) PhotoController *photoController;
+@property (nonatomic, strong) API *api;
 
 @end
 
@@ -28,7 +28,7 @@
     self.collectionView.bounces = YES;
     
     //getting the value of accesstoken, this key is setted by the developer , if that already happened it wont be nil, if not it will be nil and will create it with the response of the SimpleAuth method
-    _photoController  = [PhotoController new];
+    _api  = [API new];
     [self getVenuesData];
 }
 
@@ -50,7 +50,7 @@
 
 - (void)getVenuesData {
     
-    [_photoController getLikedVenuesID:^(NSArray *venuesID) {
+    [_api getLikedVenuesID:^(NSArray *venuesID) {
         [self getVenuesFromArrayOfIDS:venuesID];
     } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
     }];
@@ -62,7 +62,7 @@
     
     for (NSString *venueID in likedArray) {
         
-        [_photoController getVenueFromID:venueID success:^(VenueObject *venue) {
+        [_api getVenueFromID:venueID success:^(VenueObject *venue) {
             [self.venueArray addObject:venue];
             __weak MainCVController *weakSelf = self;
             dispatch_async(dispatch_get_main_queue(), ^{

@@ -1,5 +1,5 @@
 //
-//  PhotoController.h
+//  API.h
 //  photoCollectionView
 //
 //  Created by James Rochabrun on 10/19/16.
@@ -17,7 +17,7 @@ extern NSString *const DATA_VERSION_DATE;
 extern NSString *const DATA_FORMAT;
 extern NSString *const HTTPURLVERSION;
 
-@interface PhotoController : NSObject
+@interface API : NSObject
 + (void)imageForPhoto:(VenueObject *)photo size:(NSString *)size completion:(void(^)(UIImage *image))completion;
 - (void)getLikedVenuesID:(void (^)(NSArray *venuesID))success
                  failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure;
