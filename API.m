@@ -52,7 +52,7 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
             [defaults synchronize];
         }];
     }
-    NSLog(@"ACCESS TOKEN : %@", accessToken);
+   // NSLog(@"ACCESS TOKEN : %@", accessToken);
     return accessToken;
 }
 
@@ -116,6 +116,20 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
             success((NSArray *)tips);
         } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
         }];
+}
+
+- (void)getRecommendedVenuesNearby:(void (^)(NSArray *venues))success
+                           failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure {
+    
+    NSString *string = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/explore?ll=%@,%@", [API token] , @"44.3", @"37.2"];
+    NSLog(@"the url %@", string);
+    
+    SessionManager *sessionManager = [SessionManager new];
+    [sessionManager GET:string parameters:nil success:^(id responseObject) {
+        NSArray *venues = [responseObject valueForKeyPath:@"response.groups.venue.name"];
+        success(venues);
+    } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
+    }];
 }
 
 

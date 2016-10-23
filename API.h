@@ -27,5 +27,7 @@ extern NSString *const HTTPURLVERSION;
 - (void)getTipsFromVenue:(VenueObject *)venue
                  success:(void (^)(NSArray *tips))success
                  failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure;
+- (void)getRecommendedVenuesNearby:(void (^)(NSArray *venues))success
+                           failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure;
 
 @end

@@ -20,7 +20,7 @@
     NSString *size = @"100x100";
     NSString *urlSTR = [NSString stringWithFormat:@"%@%@%@", venue.prefix, size, venue.sufix];
     NSURL *url = [NSURL URLWithString:urlSTR];
-    NSLog(@"URLSTR %@" , urlSTR);
+   // NSLog(@"URLSTR %@" , urlSTR);
     
     [self.photoView setImageWithURL:url];
 }

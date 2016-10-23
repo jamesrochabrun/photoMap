@@ -30,6 +30,14 @@
     //getting the value of accesstoken, this key is setted by the developer , if that already happened it wont be nil, if not it will be nil and will create it with the response of the SimpleAuth method
     _api  = [API new];
     [self getVenuesData];
+    
+    [_api getRecommendedVenuesNearby:^(NSArray *venues) {
+        
+        NSLog(@"venue: %@", venues);
+        
+    } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+    }];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
