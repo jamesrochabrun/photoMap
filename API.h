@@ -28,7 +28,7 @@ extern NSString *const HTTPURLVERSION;
 - (void)getTipsFromVenue:(VenueObject *)venue
                  success:(void (^)(NSArray *tips))success
                  failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure;
-- (void)getRecommendedVenuesInLatitude:(CGFloat)latitude
++ (void)getRecommendedVenuesInLatitude:(CGFloat)latitude
                           andLongitude:(CGFloat)longitude
                                success:(void (^)(NSArray *venues))success
                                failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure;

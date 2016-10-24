@@ -128,7 +128,7 @@ NSString *const ACCESSTOKEN = @"accessToken";
         }];
 }
 
-- (void)getRecommendedVenuesInLatitude:(CGFloat)latitude
++ (void)getRecommendedVenuesInLatitude:(CGFloat)latitude
                           andLongitude:(CGFloat)longitude
                                success:(void (^)(NSArray *venues))success
                            failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure {

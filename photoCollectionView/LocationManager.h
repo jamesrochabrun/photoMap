@@ -23,5 +23,6 @@
 @property (nonatomic) CGFloat longitude;
 @property (nonatomic) CGFloat latitude;
 - (void)updateLocationWithcompletion:(void(^)(CGFloat latitude, CGFloat longitude))completion;
+-(void)methodWithDelay:(void(^)(BOOL result))completion;
 
 @end

@@ -113,13 +113,20 @@
         NSLog(@"teh lat %f", _latitude);
         NSLog(@"the long is %f", _longitude);
         
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"location" object:nil];
     }];
+}
+
+//example with completion bool
+-(void)methodWithDelay:(void(^)(BOOL result))completion {
 }
 
 - (void)updateLocationWithcompletion:(void(^)(CGFloat latitude, CGFloat longitude))completion {
     
     if (_latitude && _longitude) {
-        completion(_latitude, _longitude);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(_latitude, _longitude);
+        });
     } else {
         NSLog(@"comp lat %f", _latitude);
         NSLog(@"comp long is %f", _longitude);

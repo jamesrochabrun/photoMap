@@ -54,21 +54,14 @@
     [_tipButton addTarget:self action:@selector(presentTipView) forControlEvents:UIControlEventTouchUpInside];
     [_centerView addSubview:_tipButton];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateVenuesNearby:) name:@"location" object:nil];
+    
     [API imageForPhoto:_venue size:kGeomBigSize completion:^(UIImage *image) {
         _imageView.image = image;
     }];
     
     _locationManager = [LocationManager new];
     _locationManager.delegate = self;
-
-    API *api = [API new];
-    
-    [_locationManager updateLocationWithcompletion:^(CGFloat latitude, CGFloat longitude) {
-        [api getRecommendedVenuesInLatitude:latitude andLongitude:longitude success:^(NSArray *venues) {
-            NSLog(@"the venues %@", venues);
-        } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
-        }];
-    }];
     
     _textView = [UITextView new];
     _textView.layer.cornerRadius = 10;
@@ -81,6 +74,14 @@
     [_centerView addSubview:_textView];
     
     [self downloadTips];
+}
+
+- (void)updateVenuesNearby:(NSNotification *)notification {
+    
+    [API getRecommendedVenuesInLatitude:_locationManager.latitude andLongitude:_locationManager.longitude success:^(NSArray *venues) {
+        NSLog(@"the venues %@", venues);
+    } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
+    }];
 }
 
 - (void)displayAlertInVC:(UIAlertController *)alertController {
@@ -186,6 +187,11 @@
         
     }];
 }
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"location" object:nil];
+}
+
 
 
 
