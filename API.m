@@ -56,7 +56,6 @@ NSString *const ACCESSTOKEN = @"accessToken";
             if(token) {
                 //go to next VIew
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"token" object:nil];
-
             }
         }];
     }
@@ -70,7 +69,7 @@ NSString *const ACCESSTOKEN = @"accessToken";
     
     NSString *urlLikedVenues = [NSString stringWithFormat:@"%@/users/self/venuelikes/?oauth_token=%@&v=%@&m=%@", HTTPURLVERSION, [API token], DATA_VERSION_DATE, DATA_FORMAT];
     
-    NSLog(@"PATH VENUESID %@", urlLikedVenues);
+    //NSLog(@"PATH VENUESID %@", urlLikedVenues);
 
     SessionManager *sessionManager = [SessionManager new];
     
@@ -129,11 +128,17 @@ NSString *const ACCESSTOKEN = @"accessToken";
         }];
 }
 
-- (void)getRecommendedVenuesNearby:(void (^)(NSArray *venues))success
+- (void)getRecommendedVenuesInLatitude:(CGFloat)latitude
+                          andLongitude:(CGFloat)longitude
+                               success:(void (^)(NSArray *venues))success
                            failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure {
     
+    if (!latitude || !longitude) {
+        NSLog(@"PROBLEM : LATITUDE IS % AND LONGITUDE IS %f", latitude, longitude);
+        return;
+    }
 
-    NSString *string = [NSString stringWithFormat: @"https://api.foursquare.com/v2/venues/explore?ll=40.7,-74&oauth_token=%@&v=%@", [API token], DATA_VERSION_DATE];
+    NSString *string = [NSString stringWithFormat: @"https://api.foursquare.com/v2/venues/explore?ll=%f,%f&oauth_token=%@&v=%@",latitude, longitude,[API token], DATA_VERSION_DATE];
     
         NSLog(@"the url %@", string);
     

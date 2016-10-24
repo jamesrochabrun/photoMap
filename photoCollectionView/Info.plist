@@ -53,8 +53,8 @@
 			<string>https://swapi.co/api/people/</string>
 		</dict>
 	</dict>
-	<key>NSLocationUsageDescription</key>
-	<string>allow location</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allow  access your location?</string>
 	<key>NSLocationAlwaysUsageDescription</key>

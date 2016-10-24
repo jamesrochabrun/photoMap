@@ -1,6 +1,6 @@
 //
 //  LocationManager.m
-//  photoApp
+//  secretdiary
 //
 //  Created by James Rochabrun on 10/11/16.
 //  Copyright © 2016 James Rochabrun. All rights reserved.
@@ -16,12 +16,12 @@
     self = [super init];
     
     if (self) {
-        
-        _locationManager = [CLLocationManager new];
-        _locationManager.delegate = self;
-        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        [_locationManager startUpdatingLocation]; //Will update location immediately
-        
+    
+    _locationManager = [CLLocationManager new];
+    _locationManager.delegate = self;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [_locationManager startUpdatingLocation]; //Will update location immediately
+
     }
     return self;
 }
@@ -29,7 +29,7 @@
 - (void)displayAlertAskingforUserPermission {
     
     UIAlertController *a= [UIAlertController alertControllerWithTitle:@"This app needs access to your location"
-                                                              message:@"Allow us to access your location to show you the departure point, and the best route to get there"
+                                                              message:@"Allow it to add the location to your memories"
                                                        preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Not now"
@@ -40,9 +40,9 @@
                                                  style: UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                                                      
                                                      if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-                                                         [_locationManager requestWhenInUseAuthorization];
+                                                     [_locationManager requestWhenInUseAuthorization];
                                                      } else if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-                                                         [_locationManager requestAlwaysAuthorization];
+                                                     [_locationManager requestAlwaysAuthorization];
                                                      }
                                                  }];
     [a addAction:cancel];
@@ -57,8 +57,8 @@
         case kCLAuthorizationStatusNotDetermined: {
             NSLog(@"User still thinking granting location access!");
             [_locationManager startUpdatingLocation]; // this will access location automatically if user granted access manually. and will not show apple's request alert twice. (Tested)
-           // [self displayAlertAskingforUserPermission];
-            
+            [self displayAlertAskingforUserPermission];
+
         } break;
         case kCLAuthorizationStatusDenied: {
             NSLog(@"User denied location access request!!");
@@ -71,7 +71,7 @@
             // clear text
             NSLog(@"yes located");
             [_locationManager startUpdatingLocation]; //Will update location immediately
-            
+
         } break;
         default:
             break;
@@ -80,8 +80,8 @@
 
 - (void)displayAlertIfAuthoriztionIsDenied {
     
-    UIAlertController *a= [UIAlertController alertControllerWithTitle: @"This app needs location service enable."
-                                                              message: @"Please go to your settings and allow access to your location"
+    UIAlertController *a= [UIAlertController alertControllerWithTitle:@"Please go to your settings and allow access to your location"
+                                                              message:@"In order to create a great memory, we need to add the location to it. :)"
                                                        preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
@@ -92,7 +92,7 @@
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Go"
                                                  style: UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                                                      [Common goToSettings:kAppSettingsLocation];
-                                                     
+                               
                                                  }];
     [a addAction:cancel];
     [a addAction:ok];
@@ -104,20 +104,27 @@
     
     [self.locationManager stopUpdatingLocation];
     CLLocation *location = [locations firstObject];
-    CLGeocoder *geocoer = [[CLGeocoder alloc]init];
-    [geocoer reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
         CLPlacemark *placeMark = [placemarks firstObject];
         _locationString = placeMark.name;
         _longitude = placeMark.location.coordinate.longitude;
         _latitude = placeMark.location.coordinate.latitude;
+        NSLog(@"teh lat %f", _latitude);
+        NSLog(@"the long is %f", _longitude);
         
-        NSLog(@"latitude %f", _latitude);
-        NSLog(@"longitude %f", _longitude);
     }];
 }
 
-- (void)dealloc {
-    [_locationManager stopUpdatingLocation];
+- (void)updateLocationWithcompletion:(void(^)(CGFloat latitude, CGFloat longitude))completion {
+    
+    if (_latitude && _longitude) {
+        completion(_latitude, _longitude);
+    } else {
+        NSLog(@"comp lat %f", _latitude);
+        NSLog(@"comp long is %f", _longitude);
+        
+    }
 }
 
 

@@ -66,7 +66,6 @@
         [_api getVenueFromID:venueID success:^(VenueObject *venue) {
             [self.venueArray addObject:venue];
             
-            NSLog(@"the count %lu", self.venueArray.count);
             __weak MainCVController *weakSelf = self;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.collectionView reloadData];

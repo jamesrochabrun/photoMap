@@ -15,12 +15,13 @@
 #import "CommonUIConstants.h"
 #import "LocationManager.h"
 
-@interface DetailViewController ()<LocationManagerDelegate,CLLocationManagerDelegate>
+@interface DetailViewController ()<LocationManagerDelegate>
 @property (nonatomic, strong) UIImageView *imageView;
 @property (strong, nonatomic) UIView *backgroundView;
 @property (nonatomic, strong) UIView *centerView;
 @property (nonatomic, strong) UIButton *tipButton;
 @property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) LocationManager *locationManager;
 
 @end
 
@@ -57,21 +58,16 @@
         _imageView.image = image;
     }];
     
-    LocationManager *locationManager = [LocationManager new];
-    locationManager.delegate = self;
-    if (!locationManager.latitude || !locationManager.longitude) {
-        [locationManager displayAlertAskingforUserPermission];
-    }
-    
+    _locationManager = [LocationManager new];
+    _locationManager.delegate = self;
+
     API *api = [API new];
-    [api getRecommendedVenuesNearby:^(NSArray *venues) {
-        
-        NSLog(@"venue: %@", venues);
-        
-    } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        NSLog(@"RESPONSE: %@", response);
-        
+    
+    [_locationManager updateLocationWithcompletion:^(CGFloat latitude, CGFloat longitude) {
+        [api getRecommendedVenuesInLatitude:latitude andLongitude:longitude success:^(NSArray *venues) {
+            NSLog(@"the venues %@", venues);
+        } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
+        }];
     }];
     
     _textView = [UITextView new];

@@ -1,6 +1,6 @@
 //
 //  LocationManager.h
-//  photoApp
+//  secretdiary
 //
 //  Created by James Rochabrun on 10/11/16.
 //  Copyright © 2016 James Rochabrun. All rights reserved.
@@ -12,6 +12,7 @@
 
 @protocol LocationManagerDelegate <NSObject>
 -(void)displayAlertInVC:(UIAlertController *)alertController;
+
 @end
 
 
@@ -21,6 +22,6 @@
 @property (nonatomic, strong) NSString *locationString;
 @property (nonatomic) CGFloat longitude;
 @property (nonatomic) CGFloat latitude;
-- (void)displayAlertAskingforUserPermission;
+- (void)updateLocationWithcompletion:(void(^)(CGFloat latitude, CGFloat longitude))completion;
 
 @end

@@ -15,8 +15,8 @@
 		7B5AA7A51DBAF8C000600510 /* VenueObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5AA7A41DBAF8C000600510 /* VenueObject.m */; };
 		7B5AA7AA1DBAF98E00600510 /* CommonUIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5AA7A61DBAF98E00600510 /* CommonUIConstants.m */; };
 		7B5AA7AB1DBAF98E00600510 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5AA7A91DBAF98E00600510 /* Common.m */; };
-		7BC1BD201DBE919B00E1602C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC1BD1F1DBE919B00E1602C /* LocationManager.m */; };
 		7BC1BD231DBEBA1A00E1602C /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC1BD221DBEBA1A00E1602C /* LoginViewController.m */; };
+		7BC1BD261DBEC4CB00E1602C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC1BD251DBEC4CB00E1602C /* LocationManager.m */; };
 		7BD75A961D613FA7007672EA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD75A951D613FA7007672EA /* main.m */; };
 		7BD75A991D613FA7007672EA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD75A981D613FA7007672EA /* AppDelegate.m */; };
 		7BD75A9F1D613FA7007672EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BD75A9D1D613FA7007672EA /* Main.storyboard */; };
@@ -63,10 +63,10 @@
 		7B5AA7A71DBAF98E00600510 /* CommonUIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUIConstants.h; sourceTree = "<group>"; };
 		7B5AA7A81DBAF98E00600510 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		7B5AA7A91DBAF98E00600510 /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
-		7BC1BD1E1DBE919B00E1602C /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
-		7BC1BD1F1DBE919B00E1602C /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		7BC1BD211DBEBA1A00E1602C /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		7BC1BD221DBEBA1A00E1602C /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		7BC1BD241DBEC4CB00E1602C /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
+		7BC1BD251DBEC4CB00E1602C /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		7BD75A911D613FA7007672EA /* photoCollectionView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = photoCollectionView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BD75A951D613FA7007672EA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7BD75A971D613FA7007672EA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -169,8 +169,8 @@
 		7B5AA7A21DBAF6B600600510 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				7BC1BD1E1DBE919B00E1602C /* LocationManager.h */,
-				7BC1BD1F1DBE919B00E1602C /* LocationManager.m */,
+				7BC1BD241DBEC4CB00E1602C /* LocationManager.h */,
+				7BC1BD251DBEC4CB00E1602C /* LocationManager.m */,
 				7BE42D391DBC3BFC002CF7F2 /* SessionManager.h */,
 				7BE42D3A1DBC3BFC002CF7F2 /* SessionManager.m */,
 				7B5AA7A61DBAF98E00600510 /* CommonUIConstants.m */,
@@ -525,7 +525,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BC1BD201DBE919B00E1602C /* LocationManager.m in Sources */,
 				7BD75A991D613FA7007672EA /* AppDelegate.m in Sources */,
 				7BC1BD231DBEBA1A00E1602C /* LoginViewController.m in Sources */,
 				7BD75ACC1D614500007672EA /* PhotoCollectionViewCell.m in Sources */,
@@ -538,6 +537,7 @@
 				7B5AA7AB1DBAF98E00600510 /* Common.m in Sources */,
 				7B18B1591DB842550060659B /* DetailViewController.m in Sources */,
 				7B5AA7A51DBAF8C000600510 /* VenueObject.m in Sources */,
+				7BC1BD261DBEC4CB00E1602C /* LocationManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
