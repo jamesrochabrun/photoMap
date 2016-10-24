@@ -31,13 +31,6 @@
     _api  = [API new];
     [self getVenuesData];
     
-    [_api getRecommendedVenuesNearby:^(NSArray *venues) {
-        
-        NSLog(@"venue: %@", venues);
-        
-    } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-    }];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -72,6 +65,8 @@
         
         [_api getVenueFromID:venueID success:^(VenueObject *venue) {
             [self.venueArray addObject:venue];
+            
+            NSLog(@"the count %lu", self.venueArray.count);
             __weak MainCVController *weakSelf = self;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.collectionView reloadData];
@@ -96,9 +91,6 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"detail" sender:self];
 }
-
-
-
 
 
 

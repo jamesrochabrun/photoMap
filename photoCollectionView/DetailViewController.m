@@ -13,8 +13,9 @@
 #import "Common.h"
 #import "TipObject.h"
 #import "CommonUIConstants.h"
+#import "LocationManager.h"
 
-@interface DetailViewController ()
+@interface DetailViewController ()<LocationManagerDelegate,CLLocationManagerDelegate>
 @property (nonatomic, strong) UIImageView *imageView;
 @property (strong, nonatomic) UIView *backgroundView;
 @property (nonatomic, strong) UIView *centerView;
@@ -56,6 +57,23 @@
         _imageView.image = image;
     }];
     
+    LocationManager *locationManager = [LocationManager new];
+    locationManager.delegate = self;
+    if (!locationManager.latitude || !locationManager.longitude) {
+        [locationManager displayAlertAskingforUserPermission];
+    }
+    
+    API *api = [API new];
+    [api getRecommendedVenuesNearby:^(NSArray *venues) {
+        
+        NSLog(@"venue: %@", venues);
+        
+    } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSLog(@"RESPONSE: %@", response);
+        
+    }];
+    
     _textView = [UITextView new];
     _textView.layer.cornerRadius = 10;
     _textView.hidden = YES;
@@ -67,6 +85,14 @@
     [_centerView addSubview:_textView];
     
     [self downloadTips];
+}
+
+- (void)displayAlertInVC:(UIAlertController *)alertController {
+    
+    __weak DetailViewController *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf presentViewController:alertController animated:YES completion:nil];
+    });
 }
 
 - (void)dismiss {

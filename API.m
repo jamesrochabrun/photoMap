@@ -11,9 +11,11 @@
 #import "SessionManager.h"
 
 
+
 NSString *const DATA_VERSION_DATE = @"20161018";
 NSString *const DATA_FORMAT = @"foursquare";
 NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
+NSString *const ACCESSTOKEN = @"accessToken";
 
 @interface API()
 - (NSString *)accessToken;
@@ -35,7 +37,7 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
 + (NSString *)token {
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *accessToken = [defaults stringForKey:@"accessToken"];
+    NSString *accessToken = [defaults stringForKey:ACCESSTOKEN];
     
     if (!accessToken) {
         //step 3
@@ -45,14 +47,19 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
             //NSLog(@"response:  %@", responseObject);
             //accessing the token value in the credentials dictionary.
             NSString *token = responseObject[@"credentials"][@"token"];
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             //creating a key value pair for accessToken
-            [defaults setObject:token forKey:@"accessToken"];
+            [defaults setObject:token forKey:ACCESSTOKEN];
             [defaults synchronize];
+            
+            if(token) {
+                //go to next VIew
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"token" object:nil];
+
+            }
         }];
     }
-   // NSLog(@"ACCESS TOKEN : %@", accessToken);
     return accessToken;
 }
 
@@ -62,6 +69,8 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
     
     
     NSString *urlLikedVenues = [NSString stringWithFormat:@"%@/users/self/venuelikes/?oauth_token=%@&v=%@&m=%@", HTTPURLVERSION, [API token], DATA_VERSION_DATE, DATA_FORMAT];
+    
+    NSLog(@"PATH VENUESID %@", urlLikedVenues);
 
     SessionManager *sessionManager = [SessionManager new];
     
@@ -97,12 +106,14 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
                  failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure {
     
     if(!venue) {
-        NSLog(@"PROBLEM VENUE IS %@", venue);
+        NSLog(@"PROBLEM: VENUE IS %@", venue);
         return;
     }
     
     NSString *urlString= [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/tips/?oauth_token=%@&v=%@&m=%@", venue.venueID, [API token], DATA_VERSION_DATE, DATA_FORMAT];
-        
+    
+    //NSLog(@"the urlString %@", urlString);
+
         NSMutableArray *tips = [NSMutableArray new];
         
         SessionManager *sessionManager = [SessionManager new];
@@ -121,12 +132,14 @@ NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
 - (void)getRecommendedVenuesNearby:(void (^)(NSArray *venues))success
                            failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure {
     
-    NSString *string = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/explore?ll=%@,%@", [API token] , @"44.3", @"37.2"];
-    NSLog(@"the url %@", string);
+
+    NSString *string = [NSString stringWithFormat: @"https://api.foursquare.com/v2/venues/explore?ll=40.7,-74&oauth_token=%@&v=%@", [API token], DATA_VERSION_DATE];
+    
+        NSLog(@"the url %@", string);
     
     SessionManager *sessionManager = [SessionManager new];
     [sessionManager GET:string parameters:nil success:^(id responseObject) {
-        NSArray *venues = [responseObject valueForKeyPath:@"response.groups.venue.name"];
+        NSArray *venues = [responseObject valueForKeyPath:@"response.groups.items.venue.name"];
         success(venues);
     } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
     }];

@@ -18,6 +18,7 @@ extern NSString *const DATA_FORMAT;
 extern NSString *const HTTPURLVERSION;
 
 @interface API : NSObject
++ (NSString *)token;
 + (void)imageForPhoto:(VenueObject *)photo size:(NSString *)size completion:(void(^)(UIImage *image))completion;
 - (void)getLikedVenuesID:(void (^)(NSArray *venuesID))success
                  failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure;

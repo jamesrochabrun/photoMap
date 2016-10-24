@@ -53,5 +53,11 @@
 			<string>https://swapi.co/api/people/</string>
 		</dict>
 	</dict>
+	<key>NSLocationUsageDescription</key>
+	<string>allow location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow  access your location?</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Allow  access your location?</string>
 </dict>
 </plist>
