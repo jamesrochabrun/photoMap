@@ -63,7 +63,7 @@ NSString *const ACCESSTOKEN = @"accessToken";
 }
 
 
-- (void)getLikedVenuesID:(void (^)(NSArray *venuesID))success
++ (void)getLikedVenuesID:(void (^)(NSArray *venuesID))success
                  failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure {
     
     
@@ -80,7 +80,7 @@ NSString *const ACCESSTOKEN = @"accessToken";
     }];
 }
 
-- (void)getVenueFromID:(NSString *)venueID
++ (void)getVenueFromID:(NSString *)venueID
                success:(void (^)(VenueObject *venue))success
                  failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure {
     
@@ -100,7 +100,7 @@ NSString *const ACCESSTOKEN = @"accessToken";
     }];
 }
 
-- (void)getTipsFromVenue:(VenueObject *)venue
++ (void)getTipsFromVenue:(VenueObject *)venue
                  success:(void (^)(NSArray *tips))success
                  failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure {
     
@@ -109,7 +109,7 @@ NSString *const ACCESSTOKEN = @"accessToken";
         return;
     }
     
-    NSString *urlString= [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/tips/?oauth_token=%@&v=%@&m=%@", venue.venueID, [API token], DATA_VERSION_DATE, DATA_FORMAT];
+    NSString *urlString= [NSString stringWithFormat:@"%@/venues/%@/tips/?oauth_token=%@&v=%@&m=%@",HTTPURLVERSION, venue.venueID, [API token], DATA_VERSION_DATE, DATA_FORMAT];
     
     //NSLog(@"the urlString %@", urlString);
 
@@ -138,9 +138,8 @@ NSString *const ACCESSTOKEN = @"accessToken";
         return;
     }
 
-    NSString *string = [NSString stringWithFormat: @"https://api.foursquare.com/v2/venues/explore?ll=%f,%f&oauth_token=%@&v=%@",latitude, longitude,[API token], DATA_VERSION_DATE];
-    
-        NSLog(@"the url %@", string);
+    NSString *string = [NSString stringWithFormat: @"%@/venues/explore?ll=%f,%f&oauth_token=%@&v=%@",HTTPURLVERSION ,latitude, longitude,[API token], DATA_VERSION_DATE];
+    //NSLog(@"PATH RECOMMENDED NEARBY %@", string);
     
     SessionManager *sessionManager = [SessionManager new];
     [sessionManager GET:string parameters:nil success:^(id responseObject) {
@@ -150,6 +149,27 @@ NSString *const ACCESSTOKEN = @"accessToken";
     }];
 }
 
++ (void)getTrendingVenuesInLatitude:(CGFloat)latitude
+                          andLongitude:(CGFloat)longitude
+                               success:(void (^)(NSArray *venues))success
+                               failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure {
+    
+    if (!latitude || !longitude) {
+        NSLog(@"PROBLEM : LATITUDE IS % AND LONGITUDE IS %f", latitude, longitude);
+        return;
+    }
+    
+    NSString *string = [NSString stringWithFormat: @"%@/venues/trending?ll=%f,%f&oauth_token=%@&v=%@",HTTPURLVERSION ,latitude, longitude,[API token], DATA_VERSION_DATE];
+    //NSLog(@"PATH TRENDING venues %@", string);
+    
+    SessionManager *sessionManager = [SessionManager new];
+    [sessionManager GET:string parameters:nil success:^(id responseObject) {
+        NSArray *venues = [responseObject valueForKeyPath:@"response.venues.name"];
+        success(venues);
+    } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
+    }];
+
+}
 
 + (void)imageForPhoto:(VenueObject *)photo size:(NSString *)size completion:(void(^)(UIImage *image))completion {
     

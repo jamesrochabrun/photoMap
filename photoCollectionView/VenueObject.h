@@ -12,6 +12,8 @@
 @property (nonatomic) NSString *prefix;
 @property (nonatomic) NSString *sufix;
 @property (nonatomic) NSString *venueID;
+@property (nonatomic) NSString *venueName;
+
 + (VenueObject *)venueFromDict:(NSDictionary *)dict;
 
 @end

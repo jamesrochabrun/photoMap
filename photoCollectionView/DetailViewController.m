@@ -82,6 +82,12 @@
         NSLog(@"the venues %@", venues);
     } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
     }];
+    
+    [API getTrendingVenuesInLatitude:_locationManager.latitude andLongitude:_locationManager.longitude success:^(NSArray *venues) {
+        NSLog(@"the trending venues %@", venues);
+    } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+    }];
 }
 
 - (void)displayAlertInVC:(UIAlertController *)alertController {
@@ -158,8 +164,7 @@
 
 - (void)downloadTips {
     
-    API *api = [API new];
-    [api getTipsFromVenue:_venue success:^(NSArray *tips) {
+    [API getTipsFromVenue:_venue success:^(NSArray *tips) {
         self.tipString = [TipObject formatTips:tips];
     } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
     }];

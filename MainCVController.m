@@ -15,7 +15,6 @@
 //NSString *const DATA_FORMAT = @"foursquare";
 //NSString *const HTTPURLVERSION = @"https://api.foursquare.com/v2";
 @interface MainCVController()
-@property (nonatomic, strong) API *api;
 
 @end
 
@@ -28,9 +27,7 @@
     self.collectionView.bounces = YES;
     
     //getting the value of accesstoken, this key is setted by the developer , if that already happened it wont be nil, if not it will be nil and will create it with the response of the SimpleAuth method
-    _api  = [API new];
     [self getVenuesData];
-    
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -51,7 +48,7 @@
 
 - (void)getVenuesData {
     
-    [_api getLikedVenuesID:^(NSArray *venuesID) {
+    [API getLikedVenuesID:^(NSArray *venuesID) {
         [self getVenuesFromArrayOfIDS:venuesID];
     } failure:^(NSData *data, NSURLResponse *response, NSError *error) {
     }];
@@ -63,7 +60,7 @@
     
     for (NSString *venueID in likedArray) {
         
-        [_api getVenueFromID:venueID success:^(VenueObject *venue) {
+        [API getVenueFromID:venueID success:^(VenueObject *venue) {
             [self.venueArray addObject:venue];
             
             __weak MainCVController *weakSelf = self;

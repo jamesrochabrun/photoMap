@@ -17,6 +17,7 @@
     venue.sufix = parseStringOrNullFromServer([dict valueForKeyPath:@"response.venue.bestPhoto.suffix"]);
     venue.prefix = parseStringOrNullFromServer([dict valueForKeyPath:@"response.venue.bestPhoto.prefix"]);
     venue.venueID = parseStringOrNullFromServer(dict[@"response"][@"venue"][@"id"]);
+    venue.venueName = parseStringOrNullFromServer([dict valueForKeyPath:@"response.venue.name"]);
     return venue;
 }
 

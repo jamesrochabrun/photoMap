@@ -20,17 +20,21 @@ extern NSString *const HTTPURLVERSION;
 @interface API : NSObject
 + (NSString *)token;
 + (void)imageForPhoto:(VenueObject *)photo size:(NSString *)size completion:(void(^)(UIImage *image))completion;
-- (void)getLikedVenuesID:(void (^)(NSArray *venuesID))success
++ (void)getLikedVenuesID:(void (^)(NSArray *venuesID))success
                  failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure;
-- (void)getVenueFromID:(NSString *)venueID
++ (void)getVenueFromID:(NSString *)venueID
                success:(void (^)(VenueObject *venue))success
                failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure;
-- (void)getTipsFromVenue:(VenueObject *)venue
++ (void)getTipsFromVenue:(VenueObject *)venue
                  success:(void (^)(NSArray *tips))success
                  failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure;
 + (void)getRecommendedVenuesInLatitude:(CGFloat)latitude
                           andLongitude:(CGFloat)longitude
                                success:(void (^)(NSArray *venues))success
                                failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure;
++ (void)getTrendingVenuesInLatitude:(CGFloat)latitude
+                       andLongitude:(CGFloat)longitude
+                            success:(void (^)(NSArray *venues))success
+                            failure:(void (^)(NSData *data, NSURLResponse *response, NSError *error))failure;
 
 @end

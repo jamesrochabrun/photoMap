@@ -17,6 +17,7 @@
 		7B5AA7AB1DBAF98E00600510 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5AA7A91DBAF98E00600510 /* Common.m */; };
 		7BC1BD231DBEBA1A00E1602C /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC1BD221DBEBA1A00E1602C /* LoginViewController.m */; };
 		7BC1BD261DBEC4CB00E1602C /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC1BD251DBEC4CB00E1602C /* LocationManager.m */; };
+		7BC1BD291DBEE2D700E1602C /* MenuObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC1BD281DBEE2D700E1602C /* MenuObject.m */; };
 		7BD75A961D613FA7007672EA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD75A951D613FA7007672EA /* main.m */; };
 		7BD75A991D613FA7007672EA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD75A981D613FA7007672EA /* AppDelegate.m */; };
 		7BD75A9F1D613FA7007672EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BD75A9D1D613FA7007672EA /* Main.storyboard */; };
@@ -67,6 +68,8 @@
 		7BC1BD221DBEBA1A00E1602C /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		7BC1BD241DBEC4CB00E1602C /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		7BC1BD251DBEC4CB00E1602C /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
+		7BC1BD271DBEE2D700E1602C /* MenuObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuObject.h; sourceTree = "<group>"; };
+		7BC1BD281DBEE2D700E1602C /* MenuObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuObject.m; sourceTree = "<group>"; };
 		7BD75A911D613FA7007672EA /* photoCollectionView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = photoCollectionView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BD75A951D613FA7007672EA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7BD75A971D613FA7007672EA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -138,6 +141,8 @@
 			children = (
 				7BE42D361DBC3192002CF7F2 /* TipObject.h */,
 				7BE42D371DBC3192002CF7F2 /* TipObject.m */,
+				7BC1BD271DBEE2D700E1602C /* MenuObject.h */,
+				7BC1BD281DBEE2D700E1602C /* MenuObject.m */,
 				7B5AA7A31DBAF8C000600510 /* VenueObject.h */,
 				7B5AA7A41DBAF8C000600510 /* VenueObject.m */,
 			);
@@ -532,6 +537,7 @@
 				7BE42D3B1DBC3BFC002CF7F2 /* SessionManager.m in Sources */,
 				7BD75AC91D6140D1007672EA /* MainCVController.m in Sources */,
 				7BD75A961D613FA7007672EA /* main.m in Sources */,
+				7BC1BD291DBEE2D700E1602C /* MenuObject.m in Sources */,
 				7B18B1531DB833D80060659B /* API.m in Sources */,
 				7BE42D381DBC3192002CF7F2 /* TipObject.m in Sources */,
 				7B5AA7AB1DBAF98E00600510 /* Common.m in Sources */,

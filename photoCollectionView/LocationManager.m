@@ -117,21 +117,15 @@
     }];
 }
 
+
+#pragma  stockcode
+
 //example with completion bool
 -(void)methodWithDelay:(void(^)(BOOL result))completion {
 }
 
+//example with completion two arguments
 - (void)updateLocationWithcompletion:(void(^)(CGFloat latitude, CGFloat longitude))completion {
-    
-    if (_latitude && _longitude) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            completion(_latitude, _longitude);
-        });
-    } else {
-        NSLog(@"comp lat %f", _latitude);
-        NSLog(@"comp long is %f", _longitude);
-        
-    }
 }
 
 
